@@ -13,7 +13,8 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(morgan('dev'));
-app.use(cors({ origin: `http://localhost:${PORT}`, credentials: true }));
+// app.use(cors({ origin: `http://localhost:${PORT}`}));
+// app.use(cors({ origin: `http://myfrontend.com`}));
 app.use(helmet());
 
 app.use('/api/sample', sampleRoutes);

@@ -19,10 +19,3 @@ export const authMiddleware = async (req, res, next) => {
         res.status(401).json({ message: 'Not authorized, no token' });
     }
 };
-
-// {
-//     "id": 5,
-//     "email": "test@test.com",
-//     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNzQ1ODQ5MzYzLCJleHAiOjE3NDg0NDEzNjN9.Ye35WcaN3QGfjNWsAE5W-uhReS3KbYBcYkfj3hbmHK4",
-//     "type": "Login successful"
-// }
