@@ -2,7 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import sampleRoutes from './routes/sampleRoutes.js';
 import userRoutes from './routes/userRoutes.js';
-import { authMiddleware } from './middleware/middleware.js';
+import { authMiddleware } from './middleware/authMiddleware.js';
 import morgan from 'morgan';
 import cors from 'cors'
 import helmet from 'helmet';
@@ -17,7 +17,7 @@ app.use(cors({ origin: `http://localhost:${PORT}`, credentials: true }));
 app.use(helmet());
 
 app.use('/api/sample', sampleRoutes);
-app.use('/user', authMiddleware, userRoutes);
+app.use('/user', userRoutes);
 
 app.use((req, res, next) => {
   const error = new Error(`Not Found - ${req.originalUrl}`);

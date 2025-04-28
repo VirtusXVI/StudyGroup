@@ -1,5 +1,6 @@
 import pool from "../config/db.js";
 import { nameValidator, emailValidator, passwordValidator } from "../utils/utils.js";
+import { generateToken } from "../utils/generateToken.js";
 
 export const userCreate = async (req, res) => {
 	// CREATE
@@ -60,5 +61,24 @@ export const userDelete = async (req, res) => {
     res.json({ serverTime: result.rows[0], type: "Delete" });
   } catch (error) {
     throw new Error('Something went wrong inside userDelete');
+  }
+};
+
+export const userLogin = async (req, res) => {
+	// LOGIN
+	try {
+    const result = await pool.query('SELECT * FROM users WHERE email = $1;', [req.body.email]);
+
+    console.log(req.body.email === result.rows[0].email, req.body.password === result.rows[0].password)
+
+    if(req.body.email === result.rows[0].email && req.body.password === result.rows[0].password){
+      const token = generateToken(result.rows[0].id);
+      console.log("ciao")
+      res.json({ id: result.rows[0].id, email: result.rows[0].email, token: token, type: "Login successful" });
+    }else {
+      res.status(401).json({ message: 'Invalid credentials' });
+    }
+  } catch (error) {
+    throw new Error('Something went wrong inside userLogin');
   }
 };
